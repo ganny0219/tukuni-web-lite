@@ -56,7 +56,8 @@ export async function POST(req: NextRequest) {
         return {
           saleInvoiceId: saleInvoice.id,
           productId: productSale.productId ? +productSale.productId : 0,
-          price: productSale.sellPrice,
+          sellPrice: productSale.sellPrice,
+          buyPrice: productSale.buyPrice,
           quantity: productSale.quantity,
         };
       }),

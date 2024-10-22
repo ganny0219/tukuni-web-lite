@@ -2,13 +2,16 @@ import PrimaryButton from "@/components/button/primary-button";
 import React, { Dispatch, memo, SetStateAction } from "react";
 import { apiAxios } from "@/utils/axios";
 import { ProductSale } from "@/interfaces/sale";
+import { KeyedMutator } from "swr";
+import { Product } from "@/interfaces/product";
 
 type Props = {
   cart: ProductSale[];
   setCart: Dispatch<SetStateAction<ProductSale[]>>;
+  mutate: KeyedMutator<Product[]>;
 };
 
-function Cart({ cart, setCart }: Props) {
+function Cart({ cart, setCart, mutate }: Props) {
   const total = cart.reduce((acc, product) => {
     return acc + product.sellPrice * product.quantity;
   }, 0);
@@ -17,6 +20,7 @@ function Cart({ cart, setCart }: Props) {
     if (cart.length == 0) return alert("Nothing Product on cart");
     await apiAxios.post("/sales", cart);
     setCart([]);
+    mutate();
   }
 
   return (

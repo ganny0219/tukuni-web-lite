@@ -7,6 +7,7 @@ import React, { Dispatch, memo, SetStateAction } from "react";
 export const defaultProductSale: ProductSale = {
   name: "",
   sellPrice: 0,
+  buyPrice: 0,
   quantity: 0,
 };
 

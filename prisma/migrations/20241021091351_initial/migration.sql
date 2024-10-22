@@ -1,21 +1,16 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE "Product" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "buyPrice" INTEGER NOT NULL,
+    "sellPrice" INTEGER NOT NULL,
+    "stock" INTEGER NOT NULL,
+    "image" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
-  - You are about to drop the `Invoice` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Sales` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE "Sales" DROP CONSTRAINT "Sales_invoiceId_fkey";
-
--- DropForeignKey
-ALTER TABLE "Sales" DROP CONSTRAINT "Sales_productId_fkey";
-
--- DropTable
-DROP TABLE "Invoice";
-
--- DropTable
-DROP TABLE "Sales";
+    CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Sale" (
@@ -60,6 +55,9 @@ CREATE TABLE "PurchaseInvoice" (
 
     CONSTRAINT "PurchaseInvoice_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Product_name_key" ON "Product"("name");
 
 -- AddForeignKey
 ALTER TABLE "Sale" ADD CONSTRAINT "Sale_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE CASCADE ON UPDATE CASCADE;

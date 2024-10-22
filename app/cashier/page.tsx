@@ -1,12 +1,12 @@
 "use client";
 import Input from "@/components/input";
-import { apiSWR } from "@/hooks/swr";
-import { useState } from "react";
 import CashierCard from "./components/cashier-card";
 import Grid from "@/components/grid";
-import { Product } from "@/interfaces/product";
 import AddToCart, { defaultProductSale } from "./components/add-cart";
 import Cart from "./components/cart";
+import { apiSWR } from "@/hooks/swr";
+import { useState } from "react";
+import { Product } from "@/interfaces/product";
 import { ProductSale } from "@/interfaces/sale";
 
 export default function CashierPage() {
@@ -26,11 +26,12 @@ export default function CashierPage() {
   );
 
   function addSelectProduct(product: Product) {
-    const { name, sellPrice, id } = product;
+    const { name, sellPrice, id, buyPrice } = product;
     setProductSale({
       productId: id,
       name,
       sellPrice,
+      buyPrice,
       quantity: 1,
     });
   }
@@ -69,7 +70,7 @@ export default function CashierPage() {
           setProductSale={setProductSale}
           setCart={setCart}
         />
-        <Cart cart={cart} setCart={setCart} />
+        <Cart cart={cart} setCart={setCart} mutate={mutate} />
       </div>
     </div>
   );

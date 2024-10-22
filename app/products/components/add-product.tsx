@@ -97,14 +97,12 @@ function AddProduct({ mutate }: Props) {
         value={newProduct.stock}
         onChange={(e) => newProductChange(e, "stock")}
       />
-      {!newProduct.image && (
-        <UploadImageInput
-          defaultSrc={newProduct.image}
-          onChange={onUploadImage}
-          title="image"
-          uploading={uploading}
-        />
-      )}
+      <UploadImageInput
+        defaultSrc={newProduct.image}
+        onChange={onUploadImage}
+        title="image"
+        uploading={uploading}
+      />
 
       <PrimaryButton onClick={submitNewProduct} title="Add Product" />
       <div>

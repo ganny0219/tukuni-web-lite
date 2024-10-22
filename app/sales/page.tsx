@@ -24,8 +24,13 @@ export default function SalesPage() {
 
   if (!sales) return;
 
-  const total = sales.reduce((tot, sales) => {
-    const total = sales.price * sales.quantity;
+  const labaKotor = sales.reduce((tot, sales) => {
+    const total = sales.sellPrice * sales.quantity;
+    return (tot += total);
+  }, 0);
+
+  const labaBersin = sales.reduce((tot, sales) => {
+    const total = (sales.sellPrice - sales.buyPrice) * sales.quantity;
     return (tot += total);
   }, 0);
 
@@ -54,7 +59,8 @@ export default function SalesPage() {
           />
         </div>
 
-        <p>Total Income: Rp.{total}</p>
+        <p>Laba Kotor: Rp.{labaKotor}</p>
+        <p>Laba Bersih: Rp.{labaBersin}</p>
         {/* <div className="w-full max-w-[200px]">
           <Input
             type="text"
