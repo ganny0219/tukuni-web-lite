@@ -38,7 +38,7 @@ function Cart({ cart, setCart, mutate }: Props) {
         {cart.map((selectedProduct, index) => {
           return (
             <li key={index} className="flex flex-row w-full my-2">
-              <div className="flex flex-col ">
+              <div className="flex flex-col w-full">
                 <p>{selectedProduct.productName}</p>
                 <div className="flex flex-row justify-between">
                   <p>Rp.{selectedProduct.sellPrice}</p>
