@@ -23,19 +23,37 @@ function Cart({ cart, setCart, mutate }: Props) {
     mutate();
   }
 
+  async function onRemove(index: number) {
+    setCart((prev) => {
+      const newData = [...prev];
+      newData.splice(index, 1);
+      return newData;
+    });
+  }
+
   return (
     <>
       <p className="text-2xl mt-2">CART</p>
       <ul>
         {cart.map((selectedProduct, index) => {
           return (
-            <li key={index} className="flex flex-col my-2">
-              <p>{selectedProduct.name}</p>
-              <div className="flex flex-row justify-between">
-                <p>Rp.{selectedProduct.sellPrice}</p>
-                <p>x {selectedProduct.quantity}</p>
-                <p>Rp.{selectedProduct.quantity * selectedProduct.sellPrice}</p>
+            <li key={index} className="flex flex-row w-full my-2">
+              <div className="flex flex-col ">
+                <p>{selectedProduct.productName}</p>
+                <div className="flex flex-row justify-between">
+                  <p>Rp.{selectedProduct.sellPrice}</p>
+                  <p>x {selectedProduct.quantity}</p>
+                  <p>
+                    Rp.{selectedProduct.quantity * selectedProduct.sellPrice}
+                  </p>
+                </div>
               </div>
+              <button
+                className="bg-red-300 p-2 ml-2 rounded-sm"
+                onClick={() => onRemove(index)}
+              >
+                X
+              </button>
             </li>
           );
         })}

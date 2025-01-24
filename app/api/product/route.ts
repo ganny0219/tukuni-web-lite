@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
           mode: "insensitive",
         },
       },
-      take: 10,
+      take: 30,
     });
     return NextResponse.json(products, { status: 200 });
   } catch (error) {

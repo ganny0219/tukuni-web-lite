@@ -17,7 +17,7 @@ function PurchaseTableData({ purchase, mutate }: Props) {
 
   return (
     <tr>
-      <td>{purchase.id}</td>
+      <td>{purchase.productName}</td>
       <td>Rp.{purchase.price}</td>
       <td>{purchase.quantity}</td>
       <td>Rp.{purchase.price * purchase.quantity}</td>

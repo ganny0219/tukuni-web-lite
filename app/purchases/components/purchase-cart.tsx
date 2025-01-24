@@ -30,7 +30,7 @@ function PurchaseCart({ cart, setCart, mutate }: Props) {
         {cart.map((productPuchase, index) => {
           return (
             <li key={index} className="flex flex-col my-2">
-              <p>{productPuchase.name}</p>
+              <p>{productPuchase.productName}</p>
               <div className="flex flex-row justify-between">
                 <p>Rp.{productPuchase.price}</p>
                 <p>x {productPuchase.quantity}</p>

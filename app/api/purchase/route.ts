@@ -52,10 +52,11 @@ export async function POST(req: NextRequest) {
 
     const purchaseInvoice = await prisma.purchaseInvoice.create({ data: {} });
 
-    const newSales = await prisma.purchase.createMany({
+    const newPurchase = await prisma.purchase.createMany({
       data: productPurcases.map((productPurcase) => {
         return {
           purchaseInvoiceId: purchaseInvoice.id,
+          productName: productPurcase.productName,
           productId: productPurcase.productId ? +productPurcase.productId : 0,
           price: productPurcase.price,
           quantity: productPurcase.quantity,
@@ -63,7 +64,7 @@ export async function POST(req: NextRequest) {
       }),
     });
 
-    return NextResponse.json(newSales, { status: 201 });
+    return NextResponse.json(newPurchase, { status: 201 });
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to add purchases" },
@@ -78,7 +79,7 @@ export async function DELETE(req: NextRequest) {
 
     if (!id) {
       return NextResponse.json(
-        { message: "Sales Id not Found" },
+        { message: "Purchase Id not Found" },
         { status: 403 }
       );
     }
@@ -101,7 +102,7 @@ export async function DELETE(req: NextRequest) {
     await prisma.purchase.delete({ where: { id: +id } });
 
     return NextResponse.json(
-      { message: "Sales deleted successfully" },
+      { message: "Purchase deleted successfully" },
       { status: 200 }
     );
   } catch (error) {

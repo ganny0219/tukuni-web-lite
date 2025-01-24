@@ -17,6 +17,7 @@ import {
   getThisMonth,
   getThisWeek,
   getToday,
+  getYesterday,
 } from "@/utils/date";
 import PurchaseCart from "./components/purchase-cart";
 import { Purchase } from "@prisma/client";
@@ -24,14 +25,12 @@ import { Purchase } from "@prisma/client";
 const headerTitles = ["Name", "Buy Price", "Quantity", "Image", "Action"];
 
 const defaultProductPurchase: ProductPurchase = {
-  name: "",
+  productName: "",
   price: 0,
   quantity: 0,
 };
 
 function PurchasesPage() {
-  const { data: products } = apiSWR<Product[]>("/product");
-
   const [date, setDate] = useState(getToday());
   const { data: purchase, mutate } = apiSWR<Purchase[]>("/purchase", {
     start: date.start,
@@ -44,14 +43,14 @@ function PurchasesPage() {
 
   const [cart, setCart] = useState<ProductPurchase[]>([]);
 
-  if (!purchase || !products) return;
+  if (!purchase) return;
 
   const selectProductPuchase = (value: Product) => {
     setProductPuchase((prev) => {
       return {
         ...prev,
-        name: value.name,
-        buyPrice: value.buyPrice,
+        productName: value.name,
+        price: value.buyPrice,
         quantity: 1,
         productId: value.id,
       };
@@ -85,7 +84,10 @@ function PurchasesPage() {
           <h1 className="text-3xl">Purchase List</h1>
           <div className="flex flex-row ">
             <PrimaryButton title="Today" onClick={() => setDate(getToday())} />
-            <PrimaryButton title="Yesterday" onClick={() => {}} />
+            <PrimaryButton
+              title="Yesterday"
+              onClick={() => setDate(getYesterday())}
+            />
             <PrimaryButton
               title="Last Week"
               onClick={() => setDate(getLastWeek())}
@@ -115,14 +117,11 @@ function PurchasesPage() {
       </div>
       <div className="flex flex-col w-[30%] ml-4">
         <h1 className="text-2xl ml-2">Add Purchase</h1>
-        <SearchSelectionProduct
-          products={products}
-          selectProductPuchase={selectProductPuchase}
-        />
+        <SearchSelectionProduct selectProductPuchase={selectProductPuchase} />
         <Input
           type="text"
           label="name"
-          value={productPruchase.name}
+          value={productPruchase.productName}
           onChange={(e) => {}}
         />
         <NumberInput

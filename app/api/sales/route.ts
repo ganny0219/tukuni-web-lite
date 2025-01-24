@@ -55,6 +55,7 @@ export async function POST(req: NextRequest) {
       data: ProductSales.map((productSale) => {
         return {
           saleInvoiceId: saleInvoice.id,
+          productName: productSale.productName,
           productId: productSale.productId ? +productSale.productId : 0,
           sellPrice: productSale.sellPrice,
           buyPrice: productSale.buyPrice,

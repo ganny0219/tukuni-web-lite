@@ -29,7 +29,7 @@ export default function CashierPage() {
     const { name, sellPrice, id, buyPrice } = product;
     setProductSale({
       productId: id,
-      name,
+      productName: name,
       sellPrice,
       buyPrice,
       quantity: 1,

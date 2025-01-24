@@ -1,15 +1,20 @@
 import Input from "@/components/input";
+import { apiSWR } from "@/hooks/swr";
 import { Product } from "@/interfaces/product";
 import React, { useState } from "react";
 
 type Props = {
-  products: Product[];
   selectProductPuchase: (product: Product) => void;
 };
 
-function SearchSelectionProduct({ products, selectProductPuchase }: Props) {
+function SearchSelectionProduct({ selectProductPuchase }: Props) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const { data: products } = apiSWR<Product[]>(`/product`, {
+    name: search,
+  });
+
+  if (!products) return;
 
   const onFocus = () => {
     setTimeout(() => {

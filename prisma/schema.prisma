@@ -29,6 +29,7 @@ model Product {
 
 model Sale {
   id                Int               @id @default(autoincrement())
+  productName       String            @default("")
   productId         Int               
   saleInvoiceId     Int
   buyPrice          Int
@@ -51,6 +52,7 @@ model SaleInvoice {
 
 model Purchase {
   id                Int               @id @default(autoincrement())
+  productName       String            @default("")
   productId         Int               
   purchaseInvoiceId Int
   price             Int

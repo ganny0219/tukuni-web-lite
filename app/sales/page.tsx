@@ -13,9 +13,10 @@ import {
   getThisMonth,
   getThisWeek,
   getToday,
+  getYesterday,
 } from "@/utils/date";
 
-const headerTitles = ["Id", "Price", "Quantity", "Total", "Action"];
+const headerTitles = ["Name", "Price", "Quantity", "Total", "Action"];
 
 export default function SalesPage() {
   const [date, setDate] = useState(getToday());
@@ -40,7 +41,10 @@ export default function SalesPage() {
         <div className="flex flex-row w-full">
           <h1 className="text-3xl">Sales List</h1>
           <PrimaryButton title="Today" onClick={() => setDate(getToday())} />
-          <PrimaryButton title="Yesterday" onClick={() => {}} />
+          <PrimaryButton
+            title="Yesterday"
+            onClick={() => setDate(getYesterday())}
+          />
           <PrimaryButton
             title="Last Week"
             onClick={() => setDate(getLastWeek())}

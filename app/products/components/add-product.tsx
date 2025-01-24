@@ -32,7 +32,8 @@ function AddProduct({ mutate }: Props) {
   };
   const submitNewProduct = async () => {
     for (const productKey in newProduct) {
-      if (!newProduct[productKey]) return alert("FILL ALL DATA");
+      if (!newProduct[productKey] && productKey != "image")
+        return alert("FILL ALL DATA");
     }
     await apiAxios.post("/product", newProduct);
     mutate();

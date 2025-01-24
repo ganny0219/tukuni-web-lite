@@ -8,9 +8,12 @@ export function getToday() {
 
 export function getYesterday() {
   const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+
   return {
-    start: new Date(today.setHours(0, 0, 0, 0)),
-    end: new Date(today.setHours(23, 59, 59, 999)),
+    start: new Date(yesterday.setHours(0, 0, 0, 0)),
+    end: new Date(yesterday.setHours(23, 59, 59, 999)),
   };
 }
 

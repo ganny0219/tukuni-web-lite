@@ -1,5 +1,6 @@
 export interface Purchase {
   id?: number;
+  productName: string;
   productId?: number;
   price: number;
   quantity: number;
@@ -9,7 +10,7 @@ export interface Purchase {
 
 export interface ProductPurchase {
   productId?: number;
-  name: string;
+  productName: string;
   price: number;
   quantity: number;
 }
