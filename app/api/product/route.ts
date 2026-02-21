@@ -5,7 +5,6 @@ import { Product } from "@prisma/client";
 export async function GET(req: NextRequest) {
   try {
     const searchName = req.nextUrl.searchParams.get("name");
-    console.log(searchName);
     const products = await prisma.product.findMany({
       where: {
         name: {
@@ -13,7 +12,7 @@ export async function GET(req: NextRequest) {
           mode: "insensitive",
         },
       },
-      take: 30,
+      take: searchName ? 100 : 30,
     });
     return NextResponse.json(products, { status: 200 });
   } catch (error) {

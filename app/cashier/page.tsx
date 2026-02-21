@@ -8,11 +8,17 @@ import { apiSWR } from "@/hooks/swr";
 import { useState } from "react";
 import { Product } from "@/interfaces/product";
 import { ProductSale } from "@/interfaces/sale";
+import { useDebounce } from "use-debounce";
 
 export default function CashierPage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const { data: products, mutate } = apiSWR<Product[]>(`/product`, {
-    name: searchTerm,
+  const [search] = useDebounce(searchTerm, 1000);
+  const {
+    data: products,
+    mutate,
+    isLoading,
+  } = apiSWR<Product[]>(`/product`, {
+    name: search,
   });
 
   const [cart, setCart] = useState<ProductSale[]>([]);
